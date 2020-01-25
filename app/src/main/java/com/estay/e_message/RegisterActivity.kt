@@ -103,4 +103,6 @@ private  fun saveUserToFirebaseDatabase(proFileImageUrl:String){
         }
 }
 }
-class User(val uid:String, val username:String,val proFileImageUrl :String)
+class User(val uid:String, val username:String,val proFileImageUrl :String){
+    constructor():this("","","")
+}
