@@ -7,7 +7,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/imageview_chat_from_row"
+        android:id="@+id/imageview_chat_to_row"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="4dp"
@@ -21,13 +21,11 @@
         android:id="@+id/textview_from_row"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:background="@drawable/rounded_edittext_register_login"
-        android:padding="16dp"
         android:maxWidth="240dp"
+        android:padding="16dp"
         android:text="this is mmy message"
-        app:layout_constraintStart_toEndOf="@+id/imageview_chat_from_row"
+        app:layout_constraintStart_toEndOf="@+id/imageview_chat_to_row"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

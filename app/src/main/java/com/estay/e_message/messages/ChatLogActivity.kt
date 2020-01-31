@@ -1,5 +1,6 @@
 package com.estay.e_message.messages
 
+import android.net.Uri
 import android.nfc.Tag
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -48,8 +49,8 @@ class ChatLogActivity : AppCompatActivity() {
             performSendMessage()
         }
     }
-
     private fun listenForMessages() {
+
         val ref = FirebaseDatabase.getInstance().getReference("/messages")
 
         ref.addChildEventListener(object: ChildEventListener {
@@ -63,7 +64,8 @@ class ChatLogActivity : AppCompatActivity() {
                     if (chatMessage.fromId == FirebaseAuth.getInstance().uid) {
                         adapter.add(ChatFromItem(chatMessage.text))
                     } else {
-                        adapter.add(ChatToItem(chatMessage.text))
+                        val Touser = intent.getParcelableExtra<User>(NewMessageActivity.USER_KEY)
+                        adapter.add(ChatToItem(chatMessage.text,Touser))
                     }
                 }
 
@@ -108,18 +110,18 @@ class ChatLogActivity : AppCompatActivity() {
             }
     }
 
-    private fun setupDummyData() {
-        val adapter = GroupAdapter<GroupieViewHolder>()
-
-        adapter.add(ChatFromItem("FROM MESSSSSSSSAAGE"))
-        adapter.add(ChatToItem("TO MESSAGE\nTOMESSAGE"))
-        adapter.add(ChatFromItem("FROM MESSSSSSSSAAGE"))
-        adapter.add(ChatToItem("TO MESSAGE\nTOMESSAGE"))
-        adapter.add(ChatFromItem("FROM MESSSSSSSSAAGE"))
-        adapter.add(ChatToItem("TO MESSAGE\nTOMESSAGE"))
-
-        recyclerview_chat_log.adapter = adapter
-    }
+//    private fun setupDummyData() {
+//        val adapter = GroupAdapter<GroupieViewHolder>()
+//
+//        adapter.add(ChatFromItem("FROM MESSSSSSSSAAGE"))
+//        adapter.add(ChatToItem("TO MESSAGE\nTOMESSAGE"))
+//        adapter.add(ChatFromItem("FROM MESSSSSSSSAAGE"))
+//        adapter.add(ChatToItem("TO MESSAGE\nTOMESSAGE"))
+//        adapter.add(ChatFromItem("FROM MESSSSSSSSAAGE"))
+//        adapter.add(ChatToItem("TO MESSAGE\nTOMESSAGE"))
+//
+//        recyclerview_chat_log.adapter = adapter
+//    }
 }
 
 class ChatFromItem(val text: String): Item<GroupieViewHolder>() {
@@ -131,12 +133,12 @@ class ChatFromItem(val text: String): Item<GroupieViewHolder>() {
         return R.layout.chat_from_row
     }
 }
-
 class ChatToItem(val text: String,val user: User): Item<GroupieViewHolder>() {
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
         viewHolder.itemView.textview_to_row.text = text
-        val uri=user.
-        Picasso.get().load()
+        val uri=user.uid
+        val targetImageView=viewHolder.itemView.imageview_chat_to_row
+        Picasso.get().load(uri).into(targetImageView)
 
     }
 

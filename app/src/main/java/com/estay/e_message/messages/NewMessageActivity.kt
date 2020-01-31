@@ -22,31 +22,35 @@ class NewMessageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_message)
-
-        supportActionBar?.title = "Select User"
-
+        supportActionBar?.setTitle("Select User")
+//        val adapter = GroupAdapter<GroupieViewHolder>()
+//        adapter.add(UserItem())
+//        adapter.add(UserItem())
+//        adapter.add(UserItem())
+//        adapter.add(UserItem())
+//        adapter.add(UserItem())
+//        adapter.add(UserItem())
+//        adapter.add(UserItem())
+//        adapter.add(UserItem())
+//
+//        recyclerview_NewMessage.adapter=adapter
         fetchUsers()
     }
 
     companion object {
         val USER_KEY = "USER_KEY"
     }
-
-    private fun fetchUsers() {
-        val ref = FirebaseDatabase.getInstance().getReference("/users")
-        ref.addListenerForSingleValueEvent(object: ValueEventListener {
-
+    private fun fetchUsers(){
+        val ref =FirebaseDatabase.getInstance().getReference("/users")
+        ref.addListenerForSingleValueEvent(object :ValueEventListener{
             override fun onDataChange(p0: DataSnapshot) {
-                val adapter = GroupAdapter<GroupieViewHolder>()
-
-                p0.children.forEach {
-                    Log.d("NewMessage", it.toString())
-                    val user = it.getValue(User::class.java)
-                    if (user != null) {
+                val adapter=GroupAdapter<GroupieViewHolder>()
+                p0.children.forEach{
+                    val user=it.getValue(User::class.java)
+                    if (user!=null){
                         adapter.add(UserItem(user))
                     }
                 }
-
                 adapter.setOnItemClickListener { item, view ->
                     val userItem = item as UserItem
                     val intent = Intent(view.context, ChatLogActivity::class.java)
@@ -55,30 +59,24 @@ class NewMessageActivity : AppCompatActivity() {
                     startActivity(intent)
                     finish()
                 }
-                recyclerview_newmessage.adapter = adapter
+                recyclerview_newmessage.adapter=adapter
             }
-            override fun onCancelled(p0: DatabaseError){
+
+            override fun onCancelled(p0: DatabaseError) {
+
             }
         })
     }
 }
 
-class UserItem(val user: User): Item<GroupieViewHolder>() {
-    override fun bind(viewHolder: GroupieViewHolder, position: Int) {
-        viewHolder.itemView.username_textview_new_message.text = user.username
 
+class UserItem(val user: User):Item<GroupieViewHolder>()
+{
+    override fun bind(viewHolder: GroupieViewHolder, position: Int) {
+        viewHolder.itemView.username_textview_new_message.text=user.username
         Picasso.get().load(user.proFileImageUrl).into(viewHolder.itemView.imageview_new_message)
     }
-
     override fun getLayout(): Int {
-        return R.layout.user_row_new_message
+        return  R.layout.user_row_new_message
     }
 }
-
-// this is super tedious
-
-//class CustomAdapter: RecyclerView.Adapter<ViewHolder> {
-//  override fun onBindViewHolder(p0:, p1: Int) {
-//    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-//  }
-//}
