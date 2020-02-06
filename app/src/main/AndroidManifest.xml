@@ -11,30 +11,25 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".messages.NewMessageActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".messages.LatestMessagesActivity"/>
-        </activity>
-        <activity android:name=".messages.LatestMessagesActivity">
+        <activity android:name="com.estay.messages.LatestMessagesActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Registeration.LoginActivity" />
-        <activity android:name=".Registeration.RegisterActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".messages.ChatLogActivity">
+        <activity android:name="com.estay.registerlogin.RegisterActivity"/>
+        <activity android:name="com.estay.registerlogin.LoginActivity" />
+        <activity android:name="com.estay.messages.NewMessageActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".messages.LatestMessagesActivity"/>
+                android:value="com.estay.messages.LatestMessagesActivity" />
         </activity>
-        
+        <activity android:name="com.estay.messages.ChatLogActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.estay.messages.LatestMessagesActivity" />
+        </activity>
     </application>
 
 </manifest>
