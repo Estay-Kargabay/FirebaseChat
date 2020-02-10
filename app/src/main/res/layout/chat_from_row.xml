@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
+        android:backgroundTint="@android:color/darker_gray"
         android:text="This is my message that will wrap into multiple lines and keep on going"
         android:maxWidth="240dp"
         android:background="@drawable/rounded_edittext_register_login"

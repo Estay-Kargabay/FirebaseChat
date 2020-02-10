@@ -66,6 +66,7 @@ class ChatLogActivity : AppCompatActivity() {
             adapter.add(ChatToItem(chatMessage.text, toUser!!))
           }
         }
+        recyclerview_chat_log.scrollToPosition(adapter.itemCount-1)
 
       }
 
@@ -112,6 +113,10 @@ class ChatLogActivity : AppCompatActivity() {
         recyclerview_chat_log.scrollToPosition(adapter.itemCount-1)
 
       }
+    val latestMessagesRef =FirebaseDatabase.getInstance().getReference("/Latest_messages/$fromId/$toId")
+    latestMessagesRef.setValue(chatMessage)
+    val latestMessagesToRef =FirebaseDatabase.getInstance().getReference("/Latest_messages/$toId/$fromId")
+    latestMessagesToRef.setValue(chatMessage)
 
     toReference.setValue(chatMessage)
   }
